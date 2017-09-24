@@ -33,3 +33,9 @@ odd_sqr_sum(I, S) :- even1(I),
                      J is I - 1,
                      odd_sqr_sum(J, S).
 
+sum2(0, 0).
+sum2(J, S1) :- J > 0,
+               I is J - 1,
+               sum2(I, S),
+               S1 is S + J.
+
