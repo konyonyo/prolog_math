@@ -6,11 +6,11 @@ sum1(J, S1) :- I is J - 1, sum1(I, S), S1 is S + J.
 sqr_sum(0, 0).
 sqr_sum(I, S) :- J is I - 1, sqr_sum(J, T), S is T + I^2.
 
-power_sum(0, 0, N).
+power_sum(0, 0, _).
 power_sum(I, Sum, N) :- J is I - 1, power_sum(J, S, N), Sum is S + I^N.
 
-arith_sum(0, 0, D, A).
-arith_sum(1, A, D, A).
+arith_sum(0, 0, _, _).
+arith_sum(1, _, _, _).
 arith_sum(N, S, D, A) :- M is N - 1,
                          arith_sum(M, T, D, A),
                          S is T + D.
@@ -39,10 +39,9 @@ sum2(J, S1) :- J > 0,
                sum2(I, S),
                S1 is S + J.
 
-newton(X, A) :- newton_sub(A, A, A).
-newton_sub(X, Y, A) :- X1 is X/2 + A/(2*X),
-                       Y1 is X,
-                       write(X1), nl,
-                       abs(X1 - Y1) > 0.000001, !,
-                       newton_sub(X1, Y1, A).
-newton_sub(X, Y, A) :- true.
+newton(_, A) :- newton_sub(A, A).
+newton_sub(X, A) :- X1 is X/2 + A/(2*X),
+                    abs(X1 - X) > 0.000001, !,
+                    newton_sub(X1, A).
+newton_sub(X, _) :- write(X), nl, true.
+
