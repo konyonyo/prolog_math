@@ -39,3 +39,10 @@ sum2(J, S1) :- J > 0,
                sum2(I, S),
                S1 is S + J.
 
+newton(X, A) :- newton_sub(A, A, A).
+newton_sub(X, Y, A) :- X1 is X/2 + A/(2*X),
+                       Y1 is X,
+                       write(X1), nl,
+                       abs(X1 - Y1) > 0.000001, !,
+                       newton_sub(X1, Y1, A).
+newton_sub(X, Y, A) :- true.
